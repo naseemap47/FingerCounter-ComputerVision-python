@@ -38,7 +38,9 @@ while True:
                             finger.append(1)
                         else:
                             finger.append(0)
-                    print(finger)
+                    # print(finger)
+                    total_fingers = finger.count(1)
+                    print(total_fingers)
             mp_draw.draw_landmarks(img, hand_lm, mp_hand.HAND_CONNECTIONS)
 
     c_time = time.time()
