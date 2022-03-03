@@ -8,8 +8,9 @@ hand = mp_hand.Hands(max_num_hands=1)
 mp_draw = mp.solutions.drawing_utils
 
 p_time =0
-
 hand_landmarks_list = []
+tipe_id = [4, 8, 12, 16, 20]
+
 while True:
     success, img = cap.read()
 
@@ -22,7 +23,22 @@ while True:
                 height, width, channel = img.shape
                 x, y = int(lm.x * width), int(lm.y * height)
                 hand_landmarks_list.append([id, x, y])
-                print(hand_landmarks_list)
+                # print(hand_landmarks_list)
+                if len(hand_landmarks_list) > 20:
+                    finger = []
+                    # Thumb
+                    if hand_landmarks_list[tipe_id[0]][1] < hand_landmarks_list[tipe_id[0] - 1][1]:
+                        finger.append(1)
+                    else:
+                        finger.append(0)
+
+                    # 4 fingers
+                    for id in range(1, 5):
+                        if hand_landmarks_list[tipe_id[id]][2] < hand_landmarks_list[tipe_id[id]-2][2]:
+                            finger.append(1)
+                        else:
+                            finger.append(0)
+                    print(finger)
             mp_draw.draw_landmarks(img, hand_lm, mp_hand.HAND_CONNECTIONS)
 
     c_time = time.time()
