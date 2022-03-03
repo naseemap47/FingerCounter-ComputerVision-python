@@ -38,7 +38,18 @@ while True:
                             finger.append(1)
                         else:
                             finger.append(0)
-                    print(finger)
+                    # print(finger)
+                    total_fingers = finger.count(1)
+                    # print(total_fingers)
+                    cv2.rectangle(
+                        img, (20, 225), (170, 425),
+                        (0, 255, 0), cv2.FILLED,
+                    )
+                    cv2.putText(
+                        img, str(total_fingers),
+                        (45, 375), cv2.FONT_HERSHEY_PLAIN,
+                        10, (255, 0, 0), 15
+                    )
             mp_draw.draw_landmarks(img, hand_lm, mp_hand.HAND_CONNECTIONS)
 
     c_time = time.time()
@@ -47,7 +58,7 @@ while True:
     cv2.putText(
         img, f'FPS: {int(fps)}',
         (10, 60), cv2.FONT_HERSHEY_PLAIN,
-        3,(255, 0, 0), 3
+        3,(255, 0, 255), 3
     )
 
     cv2.imshow("Image", img)
