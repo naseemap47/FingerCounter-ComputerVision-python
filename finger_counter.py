@@ -58,7 +58,7 @@ while True:
     cv2.putText(
         img, f'FPS: {int(fps)}',
         (10, 60), cv2.FONT_HERSHEY_PLAIN,
-        3,(255, 0, 0), 3
+        3,(255, 0, 255), 3
     )
 
     cv2.imshow("Image", img)
