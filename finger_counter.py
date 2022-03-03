@@ -40,7 +40,16 @@ while True:
                             finger.append(0)
                     # print(finger)
                     total_fingers = finger.count(1)
-                    print(total_fingers)
+                    # print(total_fingers)
+                    cv2.rectangle(
+                        img, (20, 225), (170, 425),
+                        (0, 255, 0), cv2.FILLED,
+                    )
+                    cv2.putText(
+                        img, str(total_fingers),
+                        (45, 375), cv2.FONT_HERSHEY_PLAIN,
+                        10, (255, 0, 0), 15
+                    )
             mp_draw.draw_landmarks(img, hand_lm, mp_hand.HAND_CONNECTIONS)
 
     c_time = time.time()
