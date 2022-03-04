@@ -19,7 +19,7 @@ overlay_list = []
 for img_path in img_list:
     image = cv2.imread(f'{folder_path}/{img_path}')
     overlay_list.append(image)
-print(len(overlay_list))
+# print(len(overlay_list))
 
 while True:
     success, img = cap.read()
@@ -28,7 +28,12 @@ while True:
     # print(result.multi_hand_landmarks)
 
     img_height, img_width, channel = overlay_list[0].shape
-    print(img_height, img_width)
+    # print(img_height, img_width)
+    img_resize = cv2.resize(overlay_list[0], (200, 200))
+    img_height, img_width, channel = img_resize.shape
+    # print(img_height, img_width)
+
+    img[0:img_height, 0:img_width] = img_resize
 
     if result.multi_hand_landmarks:
         hand_landmarks_list = []
@@ -71,7 +76,7 @@ while True:
     p_time = c_time
     cv2.putText(
         img, f'FPS: {int(fps)}',
-        (10, 60), cv2.FONT_HERSHEY_PLAIN,
+        (450, 60), cv2.FONT_HERSHEY_PLAIN,
         3,(255, 0, 255), 3
     )
 
