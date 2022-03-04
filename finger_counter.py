@@ -1,6 +1,7 @@
 import cv2
 import mediapipe as mp
 import time
+import os
 
 cap = cv2.VideoCapture(0)
 mp_hand = mp.solutions.hands
@@ -9,6 +10,10 @@ mp_draw = mp.solutions.drawing_utils
 
 p_time =0
 tipe_id = [4, 8, 12, 16, 20]
+
+folder_path = 'images'
+img_list = os.listdir(folder_path)
+print(img_list)
 
 while True:
     success, img = cap.read()
