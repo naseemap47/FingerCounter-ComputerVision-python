@@ -1,6 +1,7 @@
 import cv2
 import mediapipe as mp
 import time
+import os
 
 cap = cv2.VideoCapture(0)
 mp_hand = mp.solutions.hands
@@ -8,16 +9,29 @@ hand = mp_hand.Hands(max_num_hands=1)
 mp_draw = mp.solutions.drawing_utils
 
 p_time =0
-hand_landmarks_list = []
 tipe_id = [4, 8, 12, 16, 20]
+
+folder_path = 'images'
+img_list = os.listdir(folder_path)
+# print(img_list)
+img_list.sort(reverse=False)
+# print(img_list)
+
+overlay_list = []
+for img_path in img_list:
+    image = cv2.imread(f'{folder_path}/{img_path}')
+    image = cv2.resize(image, (200, 200))
+    overlay_list.append(image)
+# print(len(overlay_list))
 
 while True:
     success, img = cap.read()
-
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     result = hand.process(img_rgb)
     # print(result.multi_hand_landmarks)
+
     if result.multi_hand_landmarks:
+        hand_landmarks_list = []
         for hand_lm in result.multi_hand_landmarks:
             for id, lm in enumerate(hand_lm.landmark):
                 height, width, channel = img.shape
@@ -41,6 +55,11 @@ while True:
                     # print(finger)
                     total_fingers = finger.count(1)
                     # print(total_fingers)
+
+                    img_height, img_width, channel = overlay_list[total_fingers].shape
+                    # print(img_height, img_width)
+                    img[0:img_height, 0:img_width] = overlay_list[total_fingers-1]
+
                     cv2.rectangle(
                         img, (20, 225), (170, 425),
                         (0, 255, 0), cv2.FILLED,
@@ -57,7 +76,7 @@ while True:
     p_time = c_time
     cv2.putText(
         img, f'FPS: {int(fps)}',
-        (10, 60), cv2.FONT_HERSHEY_PLAIN,
+        (450, 60), cv2.FONT_HERSHEY_PLAIN,
         3,(255, 0, 255), 3
     )
 
