@@ -14,10 +14,13 @@ tipe_id = [4, 8, 12, 16, 20]
 folder_path = 'images'
 img_list = os.listdir(folder_path)
 # print(img_list)
+img_list.sort(reverse=False)
+# print(img_list)
 
 overlay_list = []
 for img_path in img_list:
     image = cv2.imread(f'{folder_path}/{img_path}')
+    image = cv2.resize(image, (200, 200))
     overlay_list.append(image)
 # print(len(overlay_list))
 
@@ -26,14 +29,6 @@ while True:
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     result = hand.process(img_rgb)
     # print(result.multi_hand_landmarks)
-
-    img_height, img_width, channel = overlay_list[0].shape
-    # print(img_height, img_width)
-    img_resize = cv2.resize(overlay_list[0], (200, 200))
-    img_height, img_width, channel = img_resize.shape
-    # print(img_height, img_width)
-
-    img[0:img_height, 0:img_width] = img_resize
 
     if result.multi_hand_landmarks:
         hand_landmarks_list = []
@@ -60,6 +55,11 @@ while True:
                     # print(finger)
                     total_fingers = finger.count(1)
                     # print(total_fingers)
+
+                    img_height, img_width, channel = overlay_list[total_fingers].shape
+                    # print(img_height, img_width)
+                    img[0:img_height, 0:img_width] = overlay_list[total_fingers]
+
                     cv2.rectangle(
                         img, (20, 225), (170, 425),
                         (0, 255, 0), cv2.FILLED,
