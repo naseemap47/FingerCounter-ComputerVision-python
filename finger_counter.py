@@ -8,7 +8,6 @@ hand = mp_hand.Hands(max_num_hands=1)
 mp_draw = mp.solutions.drawing_utils
 
 p_time =0
-hand_landmarks_list = []
 tipe_id = [4, 8, 12, 16, 20]
 
 while True:
@@ -18,6 +17,7 @@ while True:
     result = hand.process(img_rgb)
     # print(result.multi_hand_landmarks)
     if result.multi_hand_landmarks:
+        hand_landmarks_list = []
         for hand_lm in result.multi_hand_landmarks:
             for id, lm in enumerate(hand_lm.landmark):
                 height, width, channel = img.shape
