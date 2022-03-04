@@ -20,7 +20,7 @@ img_list.sort(reverse=False)
 overlay_list = []
 for img_path in img_list:
     image = cv2.imread(f'{folder_path}/{img_path}')
-    image = cv2.resize(image, (200, 200))
+    image = cv2.resize(image, (150, 150))
     overlay_list.append(image)
 # print(len(overlay_list))
 
@@ -61,13 +61,13 @@ while True:
                     img[0:img_height, 0:img_width] = overlay_list[total_fingers-1]
 
                     cv2.rectangle(
-                        img, (20, 225), (170, 425),
-                        (0, 255, 0), cv2.FILLED,
+                        img, (0, 340), (150, 479),
+                        (0, 0, 0), cv2.FILLED,
                     )
                     cv2.putText(
                         img, str(total_fingers),
-                        (45, 375), cv2.FONT_HERSHEY_PLAIN,
-                        10, (255, 0, 0), 15
+                        (25, 460), cv2.FONT_HERSHEY_PLAIN,
+                        10, (255, 255, 255), 10
                     )
             mp_draw.draw_landmarks(img, hand_lm, mp_hand.HAND_CONNECTIONS)
 
