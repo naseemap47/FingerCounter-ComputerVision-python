@@ -23,10 +23,13 @@ print(len(overlay_list))
 
 while True:
     success, img = cap.read()
-
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     result = hand.process(img_rgb)
     # print(result.multi_hand_landmarks)
+
+    img_height, img_width, channel = overlay_list[0].shape
+    print(img_height, img_width)
+
     if result.multi_hand_landmarks:
         hand_landmarks_list = []
         for hand_lm in result.multi_hand_landmarks:
