@@ -13,7 +13,13 @@ tipe_id = [4, 8, 12, 16, 20]
 
 folder_path = 'images'
 img_list = os.listdir(folder_path)
-print(img_list)
+# print(img_list)
+
+overlay_list = []
+for img_path in img_list:
+    image = cv2.imread(f'{folder_path}/{img_path}')
+    overlay_list.append(image)
+print(len(overlay_list))
 
 while True:
     success, img = cap.read()
