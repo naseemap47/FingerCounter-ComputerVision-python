@@ -58,7 +58,7 @@ while True:
 
                     img_height, img_width, channel = overlay_list[total_fingers].shape
                     # print(img_height, img_width)
-                    img[0:img_height, 0:img_width] = overlay_list[total_fingers]
+                    img[0:img_height, 0:img_width] = overlay_list[total_fingers-1]
 
                     cv2.rectangle(
                         img, (20, 225), (170, 425),
